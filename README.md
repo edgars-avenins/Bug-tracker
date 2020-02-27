@@ -35,4 +35,5 @@ Researching what are the requirements of bug tracking app
 15:00 - 15:30
 
 Coding
-15:55 - 
+15:55 - 19:00
+Notes - stop messing with arrays and add a backend with database!

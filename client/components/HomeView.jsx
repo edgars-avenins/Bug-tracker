@@ -39,7 +39,7 @@ export class HomeView extends React.Component {
             ],
             projectView: true,
             showForm: false,
-            newEntry: {bugs: []},
+            newEntry: [],
             propjectOrIssuesArr: []
         }
     }
@@ -49,23 +49,47 @@ export class HomeView extends React.Component {
     }
 
     handleChange = e => {
-        this.setState({
-            newEntry: {
-                ...this.state.newEntry,
-                [e.target.name]: e.target.value
-            }
-        })
+        console.log(e)
+        if(this.state.projectView){
+            this.setState({
+                newEntry: {
+                    ...this.state.newEntry,
+                    [e.target.name]: e.target.value
+                }
+            })
+        }else{
+            this.setState({
+                newEntry: {
+                    bugs: {
+                        ...this.state.newEntry.bugs,
+                        [e.target.name]: e.target.value
+                    }
+                }
+            })
+        }
     }
 
     addEntry = e => {
         e.preventDefault()
-        this.setState({
-            projectArr: [
-                ...this.state.projectArr,
-                this.state.newEntry
-            ],
-            newEntry: {bugs: []}
-        })
+
+        if(this.state.projectView){
+            this.setState({
+                projectArr: [
+                    ...this.state.projectArr,
+                    this.state.newEntry
+                ],
+                newEntry: {bugs: []}
+            })
+        }else{
+            this.setState({
+                projectArr: {
+                    bugs: [
+                        ...this.state.projectArr,
+                        this.state.newEntry
+                    ]
+                }
+            })
+        }
         this.handleForm()
     }
 
