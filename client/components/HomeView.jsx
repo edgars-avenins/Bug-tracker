@@ -38,35 +38,78 @@ export class HomeView extends React.Component {
                 }
             ],
             projectView: true,
-            propjectOrBugArr: []
+            showForm: false,
+            newEntry: {bugs: []},
+            propjectOrIssuesArr: []
         }
     }
 
-    handleClick = () => {
-        
+    handleForm = () => {
+        this.setState({ showForm: !this.state.showForm})
+    }
+
+    handleChange = e => {
+        this.setState({
+            newEntry: {
+                ...this.state.newEntry,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+
+    addEntry = e => {
+        e.preventDefault()
+        this.setState({
+            projectArr: [
+                ...this.state.projectArr,
+                this.state.newEntry
+            ],
+            newEntry: {bugs: []}
+        })
+        this.handleForm()
     }
 
     handleView = () => {
         this.setState({ projectView: !this.state.projectView})
-        this.setState({ propjectOrBugArr: []})
+        this.setState({ propjectOrIssuesArr: []})
     }
 
-    displayProjectsOrIssues = (data) => {
+    setIssues = (data) => {
         this.setState({ projectView: !this.state.projectView})
-        this.setState({ propjectOrBugArr: data})
+        this.setState({ propjectOrIssuesArr: data})
+    }
+
+    displayProjectsOrIssues = () => {
+        if(this.state.projectView){
+            return this.state.projectArr
+        }else{
+            return this.state.propjectOrIssuesArr
+        }
     }
 
     render(){
-        let display
-        if(this.state.projectView){
-            display = this.state.projectArr
-        }else{
-            display = this.state.propjectOrBugArr
-        }
+        let display = this.displayProjectsOrIssues()
+      
         return(
             <div>
                 <h1>I'm an awesome Home view page</h1>
-                <button onClick={this.handleClick}>NEW</button>
+                <button onClick={this.handleForm}>NEW</button>
+                {
+                    this.state.showForm &&
+                    <form onSubmit={this.addEntry}>
+                        <div>
+                            <label htmlFor="">Name:</label>
+                            <input type="text" name="name" onChange={this.handleChange}/>
+                        </div>
+                        <div>
+                            <label htmlFor="">Description:</label>
+                            <input type="text" name="description" onChange={this.handleChange}/>
+                        </div>
+                        <div>
+                            <input type="submit" />
+                        </div>
+                    </form>
+                }
                 {
                     !this.state.projectView &&
                     <button onClick={this.handleView}>BACK</button>
@@ -75,7 +118,7 @@ export class HomeView extends React.Component {
                     display.map((item,i) => {
                         return (
                             this.state.projectView ?
-                            <Projects data={item} onProjectClick={this.displayProjectsOrIssues} key={i}/>
+                            <Projects data={item} onProjectClick={this.setIssues} key={i}/>
                             : <Issues data={item} key={i}/>
                         )
                     })
