@@ -14,7 +14,7 @@ export class Projects extends React.Component {
 
     render(){
         return(
-        <h1 onClick={this.handleClick}>{this.props.data.name}</h1>
+        <h3 onClick={this.handleClick}>{this.props.data.name}</h3>
         )
     }
 }

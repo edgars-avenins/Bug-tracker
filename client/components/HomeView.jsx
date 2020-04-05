@@ -51,7 +51,6 @@ export class HomeView extends React.Component {
     }
 
     handleChange = e => {
-        console.log(e)
         if (this.state.projectView) {
             this.setState({
                 newEntry: {
@@ -81,6 +80,7 @@ export class HomeView extends React.Component {
                     this.state.newEntry
                 ],
             })
+             this.clearEntry()
         } else {
             this.state.newEntry.projectId = this.state.projectId
 
@@ -94,18 +94,25 @@ export class HomeView extends React.Component {
         this.handleForm()
     }
 
+    clearEntry = () => {
+        this.setState({ newEntry: {} })
+    }
+
     handleView = () => {
         this.setState({ projectView: !this.state.projectView })
-
-        this.setState({
-            projectArr: update(this.state.projectArr, {
-                [this.state.projectId]: {
-                    bugs: {
-                        $push: [this.state.newEntry]
+        
+        if(this.state.newEntry.length != 0){
+            this.setState({
+                projectArr: update(this.state.projectArr, {
+                    [this.state.projectId]: {
+                        bugs: {
+                            $push: [this.state.newEntry]
+                        }
                     }
-                }
+                })
             })
-        })
+        }
+
         
         this.setState({ issuesArr: [] })
         this.setState({ newEntry: [] })
@@ -135,16 +142,27 @@ export class HomeView extends React.Component {
 
         return (
             <div>
-                <h1>I'm an awesome Home view page</h1>
                 {
-                    (display || []).map((item, i) => {
-                        return (
-                            this.state.projectView ?
-                                <Projects data={item} onProjectClick={this.setIssues} key={i} origin={i} />
-                                : <Issues data={item} key={i} />
-                        )
-                    })
+                    !this.state.projectView ?
+                <h1>Issue list</h1> :
+                <h1>Project List</h1>
                 }
+                <ul>
+                    {
+                        (display || []).map((item, i) => {
+                            return (
+                                this.state.projectView ?
+                                    <li key={i}>
+                                        <Projects data={item} onProjectClick={this.setIssues} origin={i} />
+                                    </li>
+                                    : 
+                                    <li key={i}>
+                                        <Issues data={item} />
+                                    </li>
+                            )
+                        })
+                    }
+                </ul>
                 <button onClick={this.handleForm}>NEW</button>
                 {
                     this.state.showForm &&
