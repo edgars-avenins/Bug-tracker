@@ -1,9 +1,10 @@
 import React from 'react'
+import update from 'react-addons-update'
 import { Projects } from './Projects'
 import { Issues } from './Issues'
 
 export class HomeView extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -38,32 +39,31 @@ export class HomeView extends React.Component {
                 }
             ],
             projectView: true,
+            projectId: 0,
             showForm: false,
             newEntry: [],
-            propjectOrIssuesArr: []
+            issuesArr: []
         }
     }
 
     handleForm = () => {
-        this.setState({ showForm: !this.state.showForm})
+        this.setState({ showForm: !this.state.showForm })
     }
 
     handleChange = e => {
         console.log(e)
-        if(this.state.projectView){
+        if (this.state.projectView) {
             this.setState({
                 newEntry: {
                     ...this.state.newEntry,
                     [e.target.name]: e.target.value
                 }
             })
-        }else{
+        } else {
             this.setState({
                 newEntry: {
-                    bugs: {
-                        ...this.state.newEntry.bugs,
-                        [e.target.name]: e.target.value
-                    }
+                    ...this.state.newEntry,
+                    [e.target.name]: e.target.value
                 }
             })
         }
@@ -72,62 +72,90 @@ export class HomeView extends React.Component {
     addEntry = e => {
         e.preventDefault()
 
-        if(this.state.projectView){
+        if (this.state.projectView) {
+            this.state.newEntry.bugs = []
+
             this.setState({
                 projectArr: [
                     ...this.state.projectArr,
                     this.state.newEntry
                 ],
-                newEntry: {bugs: []}
             })
-        }else{
+        } else {
+            this.state.newEntry.projectId = this.state.projectId
+
             this.setState({
-                projectArr: {
-                    bugs: [
-                        ...this.state.projectArr,
-                        this.state.newEntry
-                    ]
-                }
+                issuesArr: [
+                    ...this.state.issuesArr,
+                    this.state.newEntry
+                ]
             })
         }
         this.handleForm()
     }
 
     handleView = () => {
-        this.setState({ projectView: !this.state.projectView})
-        this.setState({ propjectOrIssuesArr: []})
+        this.setState({ projectView: !this.state.projectView })
+
+        this.setState({
+            projectArr: update(this.state.projectArr, {
+                [this.state.projectId]: {
+                    bugs: {
+                        $push: [this.state.newEntry]
+                    }
+                }
+            })
+        })
+        
+        this.setState({ issuesArr: [] })
+        this.setState({ newEntry: [] })
     }
 
-    setIssues = (data) => {
-        this.setState({ projectView: !this.state.projectView})
-        this.setState({ propjectOrIssuesArr: data})
+    setIssues = (data, projId) => {
+        this.setState({ projectView: !this.state.projectView })
+        this.setState({ issuesArr: data })
+
+        this.setProjectId(projId)
+    }
+
+    setProjectId = (id) => {
+        this.setState({ projectId: id })
     }
 
     displayProjectsOrIssues = () => {
-        if(this.state.projectView){
+        if (this.state.projectView) {
             return this.state.projectArr
-        }else{
-            return this.state.propjectOrIssuesArr
+        } else {
+            return this.state.issuesArr
         }
     }
 
-    render(){
+    render() {
         let display = this.displayProjectsOrIssues()
-      
-        return(
+
+        return (
             <div>
                 <h1>I'm an awesome Home view page</h1>
+                {
+                    (display || []).map((item, i) => {
+                        return (
+                            this.state.projectView ?
+                                <Projects data={item} onProjectClick={this.setIssues} key={i} origin={i} />
+                                : <Issues data={item} key={i} />
+                        )
+                    })
+                }
                 <button onClick={this.handleForm}>NEW</button>
                 {
                     this.state.showForm &&
                     <form onSubmit={this.addEntry}>
                         <div>
                             <label htmlFor="">Name:</label>
-                            <input type="text" name="name" onChange={this.handleChange}/>
+                            <input type="text" name="name" onChange={this.handleChange} />
                         </div>
                         <div>
                             <label htmlFor="">Description:</label>
-                            <input type="text" name="description" onChange={this.handleChange}/>
+                            <input type="text" name="description" onChange={this.handleChange} />
                         </div>
                         <div>
                             <input type="submit" />
@@ -138,15 +166,6 @@ export class HomeView extends React.Component {
                     !this.state.projectView &&
                     <button onClick={this.handleView}>BACK</button>
                 }
-                {
-                    display.map((item,i) => {
-                        return (
-                            this.state.projectView ?
-                            <Projects data={item} onProjectClick={this.setIssues} key={i}/>
-                            : <Issues data={item} key={i}/>
-                        )
-                    })
-                } 
             </div>
         )
     }

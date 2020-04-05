@@ -8,7 +8,8 @@ export class Projects extends React.Component {
     }
 
     handleClick = () => {
-        this.props.onProjectClick(this.props.data.bugs)
+        this.props.data.bugs.map(item => item.projectId = this.props.origin)
+        this.props.onProjectClick(this.props.data.bugs, this.props.origin)
     }
 
     render(){
