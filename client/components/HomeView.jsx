@@ -1,7 +1,7 @@
 import React from 'react'
 import update from 'react-addons-update'
 import { Projects } from './Projects'
-import { Issues } from './Issues'
+import { IssueList } from './IssueList'
 
 export class HomeView extends React.Component {
     constructor(props) {
@@ -39,6 +39,7 @@ export class HomeView extends React.Component {
                 }
             ],
             projectView: true,
+            issueView: false,
             projectId: 0,
             showForm: false,
             newEntry: [],
@@ -80,7 +81,7 @@ export class HomeView extends React.Component {
                     this.state.newEntry
                 ],
             })
-             this.clearEntry()
+            this.clearEntry()
         } else {
             this.state.newEntry.projectId = this.state.projectId
 
@@ -95,13 +96,13 @@ export class HomeView extends React.Component {
     }
 
     clearEntry = () => {
-        this.setState({ newEntry: {} })
+        this.setState({ newEntry: [] })
     }
 
     handleView = () => {
         this.setState({ projectView: !this.state.projectView })
-        
-        if(this.state.newEntry.length != 0){
+
+        if (this.state.newEntry.length != 0) {
             this.setState({
                 projectArr: update(this.state.projectArr, {
                     [this.state.projectId]: {
@@ -113,23 +114,17 @@ export class HomeView extends React.Component {
             })
         }
 
-        
         this.setState({ issuesArr: [] })
         this.setState({ newEntry: [] })
     }
 
-    setIssues = (data, projId) => {
+    setIssueList = (data, projId) => {
         this.setState({ projectView: !this.state.projectView })
         this.setState({ issuesArr: data })
-
-        this.setProjectId(projId)
+        this.setState({ projectId: projId })
     }
 
-    setProjectId = (id) => {
-        this.setState({ projectId: id })
-    }
-
-    displayProjectsOrIssues = () => {
+    displayView = () => {
         if (this.state.projectView) {
             return this.state.projectArr
         } else {
@@ -138,14 +133,14 @@ export class HomeView extends React.Component {
     }
 
     render() {
-        let display = this.displayProjectsOrIssues()
+        let display = this.displayView()
 
         return (
             <div>
                 {
                     !this.state.projectView ?
-                <h1>Issue list</h1> :
-                <h1>Project List</h1>
+                        <h1>Issue list</h1> :
+                        <h1>Project List</h1>
                 }
                 <ul>
                     {
@@ -153,11 +148,11 @@ export class HomeView extends React.Component {
                             return (
                                 this.state.projectView ?
                                     <li key={i}>
-                                        <Projects data={item} onProjectClick={this.setIssues} origin={i} />
+                                        <Projects data={item} onProjectClick={this.setIssueList} origin={i} />
                                     </li>
-                                    : 
+                                    :
                                     <li key={i}>
-                                        <Issues data={item} />
+                                        <IssueList data={item} onIssueClick={this.setIssue}/>
                                     </li>
                             )
                         })
