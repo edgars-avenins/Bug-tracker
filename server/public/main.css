@@ -1,0 +1,48 @@
+#header {
+    display:flex;
+    background-color: gainsboro;
+}
+
+#navContainer {
+    flex-grow: 3;
+}
+
+.displayFlex {
+    display: flex;
+    margin: 0px
+}
+
+.displayFrame {
+    border: lightcoral solid 1px;
+    height: 60vh;
+}
+
+.navItems {
+    list-style-type: none;
+    padding: 5px 10px;
+    align-self: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.splitDiv {
+    width: 30%;
+}
+
+.btnWidth {
+    width: 100%
+}
+
+#spaceAround{
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+#buttonLayout {
+    padding-top: 1.5%;
+    padding-left: 5%;
+    padding-bottom: 1.5%;
+    background-color: lawngreen;
+}
