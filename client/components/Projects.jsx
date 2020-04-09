@@ -8,9 +8,12 @@ class Projects extends React.Component{
     }
 
     render(){
+        const projects = this.props.projects
         return(
             <div>
-                {Array.from({length: 10}, (v, i) => <Project key={i} />)}
+                {
+                    (projects || ['Projects loading, Please Wait.']).map((project, i) => <Project key={i} info={project}/>)
+                }
             </div>
         )
     }

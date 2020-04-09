@@ -1,4 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { getProjects } from '../actions/projects'
+
 import Projects from './Projects'
 
 class Display extends React.Component{
@@ -7,13 +11,23 @@ class Display extends React.Component{
 
     }
 
+    componentDidMount(){
+        this.props.getProjects()
+    }
+
     render(){
+        const projects = this.props.projects.projects
         return(
             <div className='displayFrame'>
-                <Projects/>
+                <Projects projects={projects}/>
             </div>
         )
     }
 }
 
-export default Display
+const mapStateToProps = ({ projects }) => {
+    return {
+        projects
+    }
+}
+export default connect(mapStateToProps, { getProjects })(Display)

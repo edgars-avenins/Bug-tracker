@@ -15,6 +15,7 @@
 .displayFrame {
     border: lightcoral solid 1px;
     height: 60vh;
+    overflow: scroll;
 }
 
 .navItems {
