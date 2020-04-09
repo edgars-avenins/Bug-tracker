@@ -1,14 +1,32 @@
 import React from 'react'
 import { HashRouter as Router, Route, Link } from 'react-router-dom'
 
-import { HomeView } from './HomeView'
+
+import Nav from './Nav'
+import Login from './Login'
+import Profile from './Profile'
+import Controls from './Controls'
+import Display from './Display'
+
+
 
 
 const App = () => {
   return (<>
     <Router>
-      <Route path='/' />
-      <Route path='/project' component={HomeView}/>
+      <div id='header'>
+        <Route path='/' component={Nav}/>
+        {
+          Math.random() > 0.5 ?
+          <Route path='/' component={Login}/>
+          :
+          <Route path='/' component={Profile}/>
+        }
+      </div>
+
+      <Route path='/' component={Controls} />
+      <Route exact path='/' component={Display} />
+
     </Router>
   </>)
 }
