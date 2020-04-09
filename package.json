@@ -9,7 +9,7 @@
   "scripts": {
     "client": "webpack-dev-server --hot --inline",
     "dev": "webpack --watch",
-    "server": "node server",
+    "server": "nodemon server",
     "start": "webpack && node server",
     "test": "jest --watchAll"
   },
@@ -31,6 +31,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "knex": "^0.20.13",
+    "nodemon": "^2.0.3",
     "react-addons-update": "^15.6.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",

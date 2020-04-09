@@ -1,9 +1,22 @@
 import React from 'react'
 
-export class Issue extends React.Component {
+class Issue extends React.Component {
     render(){
+        const data = this.props.info
         return(
-            <h3>{this.props.data.name}</h3>
+            <>
+            {
+                data ? 
+                <div id={data.id} onClick={this.handleClick}>
+                    <h3 id={data.id}>{data.name}</h3>
+                    <p id={data.id}>{data.description}</p>
+                </div>
+                :
+                <h3>Issues Loading, Please Wait!</h3>
+            }
+            </>
         )
     }
 }
+
+export default Issue
