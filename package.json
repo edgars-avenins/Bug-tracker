@@ -10,8 +10,9 @@
     "client": "webpack-dev-server --hot --inline",
     "dev": "webpack --watch",
     "server": "nodemon server",
-    "start": "webpack && node server",
-    "test": "jest --watchAll"
+    "start": "node index",
+    "test": "jest --watchAll",
+    "build": "webpack && knex migrate:latest"
   },
   "babel": {
     "presets": [
@@ -29,18 +30,6 @@
     ]
   },
   "dependencies": {
-    "express": "^4.16.4",
-    "knex": "^0.20.13",
-    "nodemon": "^2.0.3",
-    "react-addons-update": "^15.6.2",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.1.2",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "sqlite3": "^4.1.1",
-    "superagent": "^5.2.2"
-  },
-  "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
@@ -49,13 +38,27 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.7.1",
     "babel-loader": "^8.0.5",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
-    "jest": "^24.7.1",
+    "express": "^4.16.4",
+    "knex": "^0.20.13",
+    "nodemon": "^2.0.3",
+    "pg": "^8.0.0",
+    "postgres-client": "^1.0.1",
     "react": "^16.8.6",
+    "react-addons-update": "^15.6.2",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "sqlite3": "^4.1.1",
+    "superagent": "^5.2.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"
+  },
+  "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "jest": "^24.7.1"
   }
 }

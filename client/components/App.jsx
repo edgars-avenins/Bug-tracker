@@ -7,6 +7,7 @@ import Login from './Login'
 import Profile from './Profile'
 import Controls from './Controls'
 import Display from './Display'
+import CurrentPath from './CurrentPath'
 
 
 
