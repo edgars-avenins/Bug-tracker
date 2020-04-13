@@ -12,7 +12,7 @@
     "server": "nodemon server",
     "start": "node index",
     "test": "jest --watchAll",
-    "postinstall": "webpack && knex migrate:latest"
+    "build": "webpack && knex migrate:latest"
   },
   "babel": {
     "presets": [
@@ -42,15 +42,16 @@
     "knex": "^0.20.13",
     "nodemon": "^2.0.3",
     "pg": "^8.0.0",
+    "postgres-client": "^1.0.1",
+    "react": "^16.8.6",
     "react-addons-update": "^15.6.2",
+    "react-dom": "^16.8.6",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "sqlite3": "^4.1.1",
     "superagent": "^5.2.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"
