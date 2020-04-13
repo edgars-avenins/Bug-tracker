@@ -9,7 +9,17 @@ class CurrentPath extends React.Component{
     render(){
         return(
             <div>
-                <h5>Project | Issue | Details | Status</h5>
+                <h5>
+                    <a href="#">All</a>
+                    |
+                    <a href="#">Project</a> 
+                     | 
+                    <a href="#">Issue</a>
+                     | 
+                    <a href="#">Details</a>
+                     | 
+                    <a href="#">Status</a>
+                    </h5>
             </div>
         )
     }

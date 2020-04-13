@@ -7,8 +7,7 @@ class Project extends React.Component{
 
     handleClick = (e) => {
         const id = e.target.id
-        //set redux state
-        console.log('click')
+        
         this.props.setDisplay('issues', id)
     }
 
