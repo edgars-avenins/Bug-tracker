@@ -1,6 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { setDisplay, getDetails } from '../actions/setDisplay'
 
 class Issue extends React.Component {
+
+    handleClick = (e) => {
+        const id = e.target.id
+        
+        this.props.setDisplay('details')
+        this.props.getDetails(id)
+    }
+
     render(){
         const data = this.props.info
         return(
@@ -19,4 +30,9 @@ class Issue extends React.Component {
     }
 }
 
-export default Issue
+const mapStateToProps = ({ details }) => {
+    return {
+        details
+    }
+}
+export default connect(mapStateToProps, { setDisplay, getDetails })(Issue)
