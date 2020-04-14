@@ -5,6 +5,7 @@ import { getProjects } from '../actions/projects'
 
 import Projects from './Projects'
 import Issues from './Issues'
+import Details from './Details'
 
 class Display extends React.Component{
     constructor(props){
@@ -20,6 +21,7 @@ class Display extends React.Component{
     render(){
         const projects = this.props.projects.projects || ''
         const issues = this.props.issues.issues || ''
+        const details = this.props.details.details || ''
         const view = this.props.view.view
         return(
             <div className='displayFrame'>
@@ -32,7 +34,14 @@ class Display extends React.Component{
                         view == 'issues' ?
                         <Issues issues={issues} />
                         :
-                        <h1>Loading, WAIT!!!</h1>
+                        <>
+                        {
+                            view == 'details' ?
+                            <Details info={details} />
+                            :
+                            <h1>Loading, WAIT!!!</h1>
+                        }
+                        </>
                     }
                     </>
                 }
@@ -42,10 +51,11 @@ class Display extends React.Component{
     }
 }
 
-const mapStateToProps = ({ projects, view, issues }) => {
+const mapStateToProps = ({ projects, view, issues, details }) => {
     return {
         projects,
         view,
+        details,
         issues
     }
 }

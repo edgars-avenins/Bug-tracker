@@ -2,14 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import {setDisplay} from '../actions/setDisplay'
+import {getIssues} from '../actions/setDisplay'
 
 class Project extends React.Component{
 
     handleClick = (e) => {
         const id = e.target.id
         //set redux state
-        console.log('click')
-        this.props.setDisplay('issues', id)
+        this.props.setDisplay('issues')
+        this.props.getIssues(id)
     }
 
     render(){
@@ -35,4 +36,4 @@ const mapStateToProps = ({ projects }) => {
         projects
     }
 }
-export default connect(mapStateToProps, {setDisplay})(Project)
+export default connect(mapStateToProps, {setDisplay, getIssues})(Project)
