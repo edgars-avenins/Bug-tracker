@@ -23,6 +23,7 @@ class CurrentPath extends React.Component{
                     <span id='issues' onClick={this.handleClick}> Issues </span>|
                     <span id='details' onClick={this.handleClick}> Details</span>
                 </h5>
+
             </div>
         )
     }

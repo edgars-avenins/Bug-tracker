@@ -11,6 +11,7 @@ class Project extends React.Component{
         //set redux state
         this.props.setDisplay('issues')
         this.props.getIssues(id)
+
     }
 
     render(){
