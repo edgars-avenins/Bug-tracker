@@ -2,26 +2,26 @@ const connection = require('./connection')
 
 module.exports = {
     getIssueDetails,
+    getProjectUser,
+    getAssignedUser,
+    getIssueUser
 }
 
 function getIssueDetails(issueID, db = connection) {
     return db('issues')
         .join('details', 'details.issue_id', 'issues.id')
         .join('projects', 'projects.id', 'issues.project_id')
-        .join('users', 'users.id', 'issues.user_id')
         .join('status', 'status.issue_id', 'issues.id')
         .select('details.id AS detailId',
             'issues.id AS issueId',
             'projects.id AS projectId',
             'projects.user_id AS projectUserId',
-            'users.id AS issueStartedUserId',
             'status.user_id AS issueAssignedUserId',
+            'issues.user_id AS issueStartedUserId',
             'issues.name AS issueName',
             'issues.description AS issueDescription',
             'projects.name AS projectName',
             'projects.description AS projectDescription',
-            'users.first_name AS firstName',
-            'users.last_name AS lastName',
             '*')
         .where('issueId', issueID).first()
         .then(data => {
@@ -35,13 +35,39 @@ function getIssueDetails(issueID, db = connection) {
             delete data.first_name
             delete data.last_name
 
-console.log(data);
-
             return data
         })
         .catch(err => console.error('Failed at DB getIssueDetails: ', err))
 }
 
-function getIssueUser(){
-    
+
+
+function getIssueUser(userId, db = connection){
+    return db('users')
+        .where('id', userId)
+        .select('users.first_name AS issueFirstName',
+                'users.last_name AS issueLastName',
+                'users.email AS issueEmail')
+        .first()
+        .then(data => data)
+}
+
+function getProjectUser(userId, db = connection){
+    return db('users')
+        .where('id', userId)
+        .select('users.first_name AS projectFirstName',
+                'users.last_name AS projectLastName',
+                'users.email AS projectEmail')
+        .first()
+        .then(data => data)
+}
+
+function getAssignedUser(userId, db = connection){
+    return db('users')
+        .where('id', userId)
+        .select('users.first_name AS assignedFirstName',
+                'users.last_name AS assignedLastName',
+                'users.email AS assignedEmail')
+        .first()
+        .then(data => data)
 }
