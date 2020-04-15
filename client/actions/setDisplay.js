@@ -1,7 +1,7 @@
 import { getProjectIssues } from '../apis/issues'
 import { getIssueDetails } from '../apis/details'
 
-export function setDisplay(view, parentID) {
+export function setDisplay(view) {
     return (dispatch) => {
         dispatch({
             type: 'SET_NEXT_VIEW',

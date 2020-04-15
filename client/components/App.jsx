@@ -7,31 +7,48 @@ import Login from './Login'
 import Profile from './Profile'
 import Controls from './Controls'
 import Display from './Display'
+import Form from './Form'
+import { connect } from 'react-redux'
+
+import { getForm } from '../actions/forms'
 
 
+class App extends React.Component{
 
 
-const App = () => {
-  return (<>
-    <Router>
-      <div id='header'>
-        <Route path='/' component={Nav}/>
+  render(){    
+    const data = this.props.forms || false
+    return (
+      <Router>
+        <div id='header'>
+          <Route path='/' component={Nav}/>
+          {
+            Math.random() > 0.5 ?
+            <Route path='/' component={Login}/>
+            :
+            <Route path='/' component={Profile}/>
+          }
+        </div>
+  
+        <Route path='/' component={Controls} />
         {
-          Math.random() > 0.5 ?
-          <Route path='/' component={Login}/>
-          :
-          <Route path='/' component={Profile}/>
+          data.form == 'add' &&
+          <Route path='/' component={Form} />
         }
-      </div>
-
-      <Route path='/' component={Controls} />
-      <Route exact path='/' component={Display} />
-
-    </Router>
-  </>)
+        <Route exact path='/' component={Display} />
+  
+      </Router>
+    )
+  }
 }
 
-export default App
+
+const mapStateToProps = ({ forms }) => {
+  return {
+    forms
+  }
+}
+export default connect(mapStateToProps, { getForm })(App)
 
 //partaisi pec where the goods at principa
 //saliec routes un nojauc tieso komponensu renderingu
