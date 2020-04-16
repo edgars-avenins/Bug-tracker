@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import {setDisplay} from '../actions/setDisplay'
-import {getIssues} from '../actions/setDisplay'
+import {getIssues} from '../actions/issues'
 
 class Project extends React.Component{
 

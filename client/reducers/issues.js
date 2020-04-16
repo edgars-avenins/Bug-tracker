@@ -6,6 +6,8 @@ export default function issues(state = initialState, action){
             return {
                 issues: action.data
             }
+        case 'ADD_ISSUE':
+            return state
         default:
             return state
     }

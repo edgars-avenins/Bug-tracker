@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { addNewProject } from '../actions/projects'
+import { addNewIssue } from '../actions/issues'
 
 class Form extends React.Component{
     constructor(props){
@@ -15,8 +16,13 @@ class Form extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault()
-
-        this.props.addNewProject(this.state)
+        if(this.props.view.view == 'projects'){
+            this.props.addNewProject(this.state)
+        }else if(this.props.view.view == 'issues'){
+            const id = this.props.issues.issues[0].project_id
+            
+            this.props.addNewIssue(this.state, id)
+        }
     }
 
     handleChange = (e) => {
@@ -26,6 +32,7 @@ class Form extends React.Component{
     }
 
     render(){
+        
         return(
             <>
             <form onSubmit={this.handleSubmit}>
@@ -42,6 +49,6 @@ class Form extends React.Component{
     }
 }
 
-const mapStateToProps = () => {return{}}
+const mapStateToProps = ({view, issues}) => {return {view, issues}}
 
-export default connect(mapStateToProps, { addNewProject })(Form)
+export default connect(mapStateToProps, { addNewProject, addNewIssue })(Form)
