@@ -8,4 +8,13 @@ router.get('/:id', (req, res) => {
         .then(data => res.json(data))
 })
 
+router.post('/:id', (req, res) => {
+    const data = req.body
+    data.project_id = req.params.id
+    data.user_id = 50002
+
+    db.addIssue(data)
+        .then(data => res.json(data))
+})
+
 module.exports = router

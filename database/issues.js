@@ -2,6 +2,13 @@ const connection = require('./connection')
 
 module.exports = {
     getProjectIssues,
+    addIssue
+}
+
+function addIssue(data, db = connection){
+    return db('issues')
+        .insert(data)
+        .then(id => id)
 }
 
 function getProjectIssues(projectID, db = connection){
