@@ -25,3 +25,12 @@ export function addNewProject(data){
             })
     }
 }
+
+export function setChosenProject(id){
+    return (dispatch) => {
+        dispatch({
+            type: 'CHOOSE_PROJECT',
+            data: id
+        })
+    }
+}

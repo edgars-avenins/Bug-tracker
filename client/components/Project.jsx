@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import {setDisplay} from '../actions/setDisplay'
 import {getIssues} from '../actions/issues'
+import {setChosenProject} from '../actions/projects'
 
 class Project extends React.Component{
 
@@ -11,6 +12,7 @@ class Project extends React.Component{
         //set redux state
         this.props.setDisplay('issues')
         this.props.getIssues(id)
+        this.props.setChosenProject(id)
 
     }
 
@@ -37,4 +39,4 @@ const mapStateToProps = ({ projects }) => {
         projects
     }
 }
-export default connect(mapStateToProps, {setDisplay, getIssues})(Project)
+export default connect(mapStateToProps, {setDisplay, getIssues, setChosenProject})(Project)

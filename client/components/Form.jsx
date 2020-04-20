@@ -19,7 +19,7 @@ class Form extends React.Component{
         if(this.props.view.view == 'projects'){
             this.props.addNewProject(this.state)
         }else if(this.props.view.view == 'issues'){
-            const id = this.props.issues.issues[0].project_id
+            const id = this.props.projects.chosenProject.id
             
             this.props.addNewIssue(this.state, id)
         }
@@ -49,6 +49,6 @@ class Form extends React.Component{
     }
 }
 
-const mapStateToProps = ({view, issues}) => {return {view, issues}}
+const mapStateToProps = ({view, issues, projects}) => {return {view, issues, projects}}
 
 export default connect(mapStateToProps, { addNewProject, addNewIssue })(Form)
