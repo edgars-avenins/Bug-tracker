@@ -10,7 +10,7 @@ export function requestLogin () {
 }
 
 export function receiveLogin (user) {
-  localStorage.setItem('UrbanForagerRemembersMe', 'true') //set a local storage item in order to skip the landing page 
+  localStorage.setItem('bugTracker', 'true') //set a local storage item in order to skip the landing page 
   return {
     type: 'LOGIN_SUCCESS',
     isFetching: false,
@@ -30,7 +30,7 @@ export function loginError (message) {
 
 export function loginUser (creds) {
   return dispatch => {
-    dispatch(requestLogin(creds))
+    dispatch(requestLogin())
     return login(creds)
       .then((token) => {
         const userInfo = saveUserToken(token)
