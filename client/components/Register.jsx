@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import {registerUserRequest} from '../actions/register'
 
 class Register extends React.Component{
     constructor(props){
@@ -6,11 +9,16 @@ class Register extends React.Component{
 
     }
 
+    handleClick = () => {
+        this.props.registerUserRequest({first_name: 'Loco', last_name: 'Coco', email: 'edgars@gmail.com', hash: '123456789012'})
+    }
+
     render(){
         return(
-                <button>Register</button>
+                <button onClick={this.handleClick}>Register</button>
         )
     }
 }
 
-export default Register
+const mapStateToProps = ({}) => {return{}}
+export default connect(mapStateToProps, { registerUserRequest })(Register)
