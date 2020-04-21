@@ -7,14 +7,6 @@ export function setForm() {
     }
 }
 
-export function getForm() {
-    return (dispatch) => {
-        dispatch({
-            type: 'GET_ADD_FORM'
-        })
-    }
-}
-
 export function hideForm(){
     return (dispatch) => {
         dispatch({
