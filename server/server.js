@@ -15,6 +15,6 @@ server.use(express.urlencoded({extended: false}))
 server.use('/api/v1/projects', projRoute)
 server.use('/api/v1/issues', issueRoute)
 server.use('/api/v1/details', detailRoutes)
-server.use('/auth', authRoutes)
+server.use('/api/auth', authRoutes)
 
 module.exports = server
