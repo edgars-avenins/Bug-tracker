@@ -2,15 +2,20 @@ const connection = require('./connection')
 const {generatePasswordHash} = require('../server/auth/hash')
 
 module.exports = {
-    getUsers,
+    getUser,
     createUser,
     userExists,
     getUserByUsername
 }
 
-function getUsers(db = connection){
+function getUser(email, db = connection){
     return db('users')
-        .select()
+        .where('email', email).first()
+        .select('users.first_name AS firstName','users.last_name AS lastName', '*')
+        .then(data => {
+          delete data.hash
+          return data
+        })
 }
 
 function createUser ( email, first_name, last_name, password, db = connection) {

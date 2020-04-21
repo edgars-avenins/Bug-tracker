@@ -1,10 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { logoutUser } from '../actions/logout'
+
 
 class Access extends React.Component{
     constructor(props){
         super(props)
 
+    }
+
+    handleLogout = () => {
+        this.props.logoutUser()
     }
 
     render(){
@@ -21,7 +29,7 @@ class Access extends React.Component{
                     :
                         <>
                             <li className='navItems'><Link to="/user">Profile</Link></li>
-                            <li className='navItems'><Link to="/logout">Log out</Link></li>
+                            <li className='navItems'><a href="#" onClick={this.handleLogout}>Log out</a></li>
                         </>
                     }
                 </ul>
@@ -30,4 +38,5 @@ class Access extends React.Component{
     }
 }
 
-export default Access
+const mapStateToProps = ({}) => {return{}}
+export default connect(mapStateToProps, { logoutUser })(Access)
