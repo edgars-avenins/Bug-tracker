@@ -5,6 +5,7 @@ import issues from './issues'
 import view from './setDisplay'
 import details from './details'
 import forms from './forms'
+import auth from './auth'
 
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
     issues,
     view,
     details,
-    forms
+    forms,
+    auth
 })
