@@ -1,16 +1,18 @@
 import React from 'react'
-import { HashRouter as Router, Route, Link } from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 
 import Nav from './Nav'
-import Login from './Login'
-import Profile from './Profile'
+import Access from './Access'
 import Controls from './Controls'
 import Display from './Display'
 import Form from './Form'
-import { connect } from 'react-redux'
+import Register from './Register'
+import Login from './Login'
+import Profile from './Profile'
+import Logout from './Logout'
 
-import { getForm } from '../actions/forms'
 
 
 class App extends React.Component{
@@ -18,19 +20,20 @@ class App extends React.Component{
 
   render(){    
     const data = this.props.forms || false
+    const auth = this.props.auth.isAuthenticated || false
     return (
       <Router>
         <div id='header'>
           <Route path='/' component={Nav}/>
-          {
-            Math.random() > 0.5 ?
-            <Route path='/' component={Login}/>
-            :
-            <Route path='/' component={Profile}/>
-          }
+          <Route path='/' component={()=> <Access auth={auth}/>}/>
         </div>
-  
-        <Route path='/' component={Controls} />
+
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/user' component={Profile} />
+        <Route exact path='/logout' component={Logout} />
+
+        <Route exact path='/' component={Controls} />
         {
           data.form == 'add' &&
           <Route path='/' component={Form} />
@@ -43,12 +46,13 @@ class App extends React.Component{
 }
 
 
-const mapStateToProps = ({ forms }) => {
+const mapStateToProps = ({ forms, auth }) => {
   return {
-    forms
+    forms,
+    auth
   }
 }
-export default connect(mapStateToProps, { getForm })(App)
+export default connect(mapStateToProps, { })(App)
 
 //partaisi pec where the goods at principa
 //saliec routes un nojauc tieso komponensu renderingu
