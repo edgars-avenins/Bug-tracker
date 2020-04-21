@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Login extends React.Component{
+class Logout extends React.Component{
     constructor(props){
         super(props)
 
@@ -8,9 +8,9 @@ class Login extends React.Component{
 
     render(){
         return(
-                <button>Login</button>
+                <button>Logout</button>
         )
     }
 }
 
-export default Login
+export default Logout
