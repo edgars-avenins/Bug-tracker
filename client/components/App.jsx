@@ -11,7 +11,6 @@ import Form from './Form'
 import Register from './Register'
 import Login from './Login'
 import Profile from './Profile'
-import Logout from './Logout'
 
 
 
@@ -31,7 +30,6 @@ class App extends React.Component{
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/user' component={Profile} />
-        <Route exact path='/logout' component={Logout} />
 
         <Route exact path='/' component={Controls} />
         {
