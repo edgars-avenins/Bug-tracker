@@ -12,6 +12,7 @@
     "server": "nodemon server",
     "start": "node server",
     "test": "jest --watchAll",
+    "deploy": "git push heroku heroku-deploy:master",
     "build": "webpack",
     "postinstall": "knex migrate:latest"
   },

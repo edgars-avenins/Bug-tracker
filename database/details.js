@@ -10,9 +10,6 @@ module.exports = {
 function getIssueDetails(issueID, db = connection) {
     console.log(issueID)
     return db('issues')
-        .join('details', 'details.issue_id', 'issues.id')
-        .join('projects', 'projects.id', 'issues.project_id')
-        .join('status', 'status.issue_id', 'issues.id')
         .select('details.id AS detailId',
             'issues.id AS issueId',
             'projects.id AS projectId',
@@ -24,6 +21,9 @@ function getIssueDetails(issueID, db = connection) {
             'projects.name AS projectName',
             'projects.description AS projectDescription',
             '*')
+        .join('details', 'details.issue_id', 'issues.id')
+        .join('projects', 'projects.id', 'issues.project_id')
+        .join('status', 'status.issue_id', 'issues.id')
         .where('issueId', issueID).first()
         .then(data => {
             delete data.id
@@ -73,3 +73,19 @@ function getAssignedUser(userId, db = connection){
         .first()
         .then(data => data)
 }
+
+// error: select "details"."id" as "detailId",
+// "issues"."id" as "issueId",
+// "projects"."id" as "projectId",
+// "projects"."user_id" as "projectUserId",
+// "status"."user_id" as "issueAssignedUserId",
+// "issues"."user_id" as "issueStartedUserId",
+// "issues"."name" as "issueName",
+// "issues"."description" as "issueDescription",
+// "projects"."name" as "projectName",
+// "projects"."description" as "projectDescription",
+// * from "issues"
+// inner join "details" on "details"."issue_id" = "issues"."id"
+// inner join "projects" on "projects"."id" = "issues"."project_id"
+// inner join "status" on "status"."issue_id" = "issues"."id"
+// where "issueId"
