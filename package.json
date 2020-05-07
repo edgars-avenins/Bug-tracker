@@ -10,9 +10,10 @@
     "client": "webpack-dev-server --hot --inline",
     "dev": "webpack --watch",
     "server": "nodemon server",
-    "start": "node index",
+    "start": "node server",
     "test": "jest --watchAll",
-    "build": "webpack && knex migrate:latest"
+    "build": "webpack",
+    "postinstall": "knex migrate:latest"
   },
   "babel": {
     "presets": [

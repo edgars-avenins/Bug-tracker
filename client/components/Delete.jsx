@@ -9,7 +9,7 @@ class Delete extends React.Component{
     render(){
         return(
             <div className='splitDiv'>
-                <button className='btnWidth'>DELETE</button>
+                <button className='btnWidth'>DELETE - in progress</button>
             </div>
         )
     }

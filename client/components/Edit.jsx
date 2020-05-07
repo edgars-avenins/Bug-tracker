@@ -9,7 +9,7 @@ class Edit extends React.Component{
     render(){
         return(
             <div id='spaceAround' className='splitDiv'>
-                <button className='btnWidth'>EDIT</button>
+                <button className='btnWidth'>EDIT - in progress</button>
             </div>
         )
     }
