@@ -8,6 +8,7 @@ module.exports = {
 }
 
 function getIssueDetails(issueID, db = connection) {
+    console.log(issueID)
     return db('issues')
         .join('details', 'details.issue_id', 'issues.id')
         .join('projects', 'projects.id', 'issues.project_id')
@@ -35,6 +36,7 @@ function getIssueDetails(issueID, db = connection) {
             delete data.first_name
             delete data.last_name
 
+            console.log(data)
             return data
         })
         .catch(err => console.error('Failed at DB getIssueDetails: ', err))
