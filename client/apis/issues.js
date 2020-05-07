@@ -7,3 +7,12 @@ export function getProjectIssues(id){
         .get(url + `/${id}`)
         .then(res => res.body)
 }
+
+export function addIssue(data, id){
+    console.log(id)
+    return request
+        .post(url + `/${id}`)
+        .send(data)
+        .then(res => res.body)
+}
+

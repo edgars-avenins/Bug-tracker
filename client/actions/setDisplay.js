@@ -1,16 +1,22 @@
-import { getProjectIssues } from '../apis/issues'
+import { getIssueDetails } from '../apis/details'
 
-export function setDisplay(view, parentID){
+export function setDisplay(view) {
     return (dispatch) => {
-        getProjectIssues(parentID)
+        dispatch({
+            type: 'SET_NEXT_VIEW',
+            data: view
+        })
+    }
+}
+
+
+export function getDetails(id) {
+    return (dispatch) => {
+        getIssueDetails(id)
             .then(data => {
                 dispatch({
-                    type: 'RECEIVE_PROJECT_ISSUES',
+                    type: 'RECEIVE_ISSUE_DETAILS',
                     data
-                })
-                dispatch({
-                    type: 'SET_NEXT_VIEW',
-                    data: view
                 })
             })
     }

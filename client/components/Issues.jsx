@@ -9,10 +9,15 @@ class Issues extends React.Component{
 
     render(){
         const issues = this.props.issues
+
         return(
             <div>
                 {
-                    (issues || ['Issues loading, Please Wait.']).map((issue, i) => <Issue key={i} info={issue}/>)
+                    issues ?
+                    issues.map((issue, i) => <Issue key={i} info={issue || ''}/>)
+                    :
+                    <h3>Choose an Project first to see the issues it has!</h3>
+                    
                 }
             </div>
         )

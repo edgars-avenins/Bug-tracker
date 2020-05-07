@@ -1,4 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { setForm } from '../actions/forms'
+
+
 
 class Add extends React.Component{
     constructor(props){
@@ -9,10 +14,12 @@ class Add extends React.Component{
     render(){
         return(
             <div className='splitDiv'>
-                <button className='btnWidth'>ADD</button>
+                <button className='btnWidth' onClick={this.props.setForm}>ADD</button>
             </div>
         )
     }
 }
 
-export default Add
+const mapStateToProps = () => { return {}}
+
+export default connect(mapStateToProps, { setForm })(Add)
