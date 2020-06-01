@@ -7,6 +7,7 @@ router.post('/register', register, token.issue)
 
 function register (req, res, next) {
   const { email, firstName, lastName, hash } = req.body
+  
   userExists(email)
     .then(exists => {
       

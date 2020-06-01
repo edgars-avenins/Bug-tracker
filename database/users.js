@@ -28,7 +28,10 @@ function createUser ( email, first_name, last_name, password, db = connection) {
 function userExists (email, db = connection) {
   return db('users')
     .where('email', email)
-    .then(users => users.length > 0)
+    .then(users => {
+      console.log(users)
+      return users.length > 0
+    })
 }
 
 function getUserByUsername (email, db = connection) {
