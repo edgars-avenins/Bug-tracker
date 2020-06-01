@@ -1,15 +1,28 @@
-require('@babel/polyfill')
 const request = require('supertest')
 
 const server = require('../../server/server')
 const db = require('../../database/users')
 
-
-jest.mock('../../database/users')
+jest.mock('../../database/users', () => {
+    return {
+        createUser: (email, firstName, lastName, hash) => Promise.resolve([{ id: 15 }]),
+        userExists: (email) => Promise.resolve(false),
+    }
+})
+jest.mock('../../server/auth/token', () => {
+    return {
+        issue: (req,res) => {
+            res.json({
+                message: 'Authentication successful',
+                token: '123'
+              })
+        }
+    }
+})
 let baseUrl = '/api/auth'
 
 beforeEach(() => {
-    db.reset()
+    // db.reset()
   })
   
 
@@ -27,4 +40,7 @@ test('/register route works', () => {
             hash: 'coolcool'
         })
         .expect(200)
+        .then((res) => {
+            expect(res.body.message).toContain('Auth')
+        })
 })

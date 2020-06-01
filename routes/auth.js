@@ -15,9 +15,15 @@ function register (req, res, next) {
 
       createUser( email, firstName, lastName, hash)
         .then(() => next())
-        .catch(err => res.status(500).send({message: "Server Error"}))
+        .catch(err => { 
+          console.log(err)
+          res.status(500).send({message: "Server Error"})
+        })
     })
-    .catch(err => res.status(500).send({message: "Server Error"}))
+    .catch(err => { 
+      console.log(err)
+      res.status(500).send({message: "Server Error"})
+    })
 }
 
 router.post('/login', token.issue)
