@@ -44,3 +44,16 @@ test('/register route works', () => {
             expect(res.body.message).toContain('Auth')
         })
 })
+
+test('/login route works', () => {
+    return request(server)
+        .post(`${baseUrl}/login`)
+        .send({
+            email: 'edgars123@gmail.com',
+            hash: 'coolcool'
+        })
+        .expect(200)
+        .then(res => {
+            expect(res.body.message).toContain('Auth')
+        })
+})
