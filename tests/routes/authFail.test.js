@@ -7,18 +7,10 @@ jest.mock('../../database/users', () => {
     return {
         createUser: (email, firstName, lastName, hash) => Promise.resolve([{ id: 15 }]),
         userExists: (email) => Promise.resolve(true),
+        getUserByUsername: (email) => Promise.resolve(0)
     }
 })
-jest.mock('../../server/auth/token', () => {
-    return {
-        issue: (req,res) => {
-            res.json({
-                message: 'Authentication successful',
-                token: '123'
-              })
-        }
-    }
-})
+
 let baseUrl = '/api/auth'
 
 beforeEach(() => {
@@ -45,6 +37,7 @@ test('/register user name taken', () => {
         })
 })
 
+//learn to mock in this tests scope instead file scope
 test('/register createUser fails', () => {
     return request(server)
         .post(`${baseUrl}/register`)
@@ -67,8 +60,8 @@ test('/login route works', () => {
             email: 'edgars123@gmail.com',
             hash: 'coolcool'
         })
-        .expect(200)
+        .expect(403)
         .then(res => {
-            expect(res.body.message).toContain('Auth')
+            expect(res.body.message).toContain('not exist')
         })
 })
