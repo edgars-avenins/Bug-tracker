@@ -11,7 +11,7 @@
     "dev:server": "nodemon server",
     "dev": "run-p dev:client dev:server",
     "start": "node index",
-    "test": "jest --watchAll --noStackTrace --colors",
+    "test": "jest --watchAll --noStackTrace --colors --coverage",
     "build": "webpack && knex migrate:latest"
   },
   "babel": {
