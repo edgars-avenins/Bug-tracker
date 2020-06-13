@@ -11,20 +11,36 @@ router.get('/:id', (req, res) => {
 
                     db.getProjectUser(details.projectUserId)
                         .then(projectUser => {
-                        
-                        db.getIssueUser(details.issueStartedUserId)
-                            .then(issueUser => {
-                                const data = {
-                                    details,
-                                    assignedUser,
-                                    projectUser,
-                                    issueUser
-                                }
 
-                                res.json(data)
-                            })
-                    })
+                            db.getIssueUser(details.issueStartedUserId)
+                                .then(issueUser => {
+                                    const data = {
+                                        details,
+                                        assignedUser,
+                                        projectUser,
+                                        issueUser
+                                    }
+
+                                    res.status(200).json(data)
+                                })
+                                .catch(err => {
+                                    // console.log(err)
+                                    res.status(500).json({ message: err.message })
+                                })
+                        })
+                        .catch(err => {
+                            // console.log(err)
+                            res.status(500).json({ message: err.message })
+                        })
                 })
+                .catch(err => {
+                    // console.log(err)
+                    res.status(500).json({ message: err.message })
+                })
+        })
+        .catch(err => {
+            // console.log(err)
+            res.status(500).json({ message: err.message })
         })
 })
 

@@ -13,8 +13,13 @@ function getUser(email, db = connection){
         .where('email', email).first()
         .select('users.first_name AS firstName','users.last_name AS lastName', '*')
         .then(data => {
-          delete data.hash
-          return data
+          if(data){
+            delete data.hash
+            delete data.first_name
+            delete data.last_name
+            return data
+          }
+          return {message: 'User does not exist'}
         })
 }
 
@@ -34,5 +39,12 @@ function userExists (email, db = connection) {
 function getUserByUsername (email, db = connection) {
   return db('users')
     .where('email', email)
+    .select('users.first_name AS firstName','users.last_name AS lastName', '*')
     .first()
+    .then(data => {
+      delete data.hash
+      delete data.first_name
+      delete data.last_name
+      return data
+    })
 }

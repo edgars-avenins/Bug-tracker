@@ -4,6 +4,7 @@ const verifyJwt = require('express-jwt')
 const {comparePasswordToHash} = require('./hash')
 
 function issue (req, res) {
+
   getUserByUsername(req.body.email)
     .then(user => {
       if (!user) {
@@ -22,9 +23,14 @@ function issue (req, res) {
           }
         })
         .catch(err => {
+          // console.log(err)
           res.status(500).json({message: err.message})
         })
       }
+    })
+    .catch(err => { 
+      // console.log(err)
+      res.status(500).send({message: "Server Error"})
     })
 }
 
