@@ -24,7 +24,7 @@ function getIssueDetails(issueID, db = connection) {
             'projects.name AS projectName',
             'projects.description AS projectDescription',
             '*')
-        .where('issueId', issueID).first()
+        .where('issues.id', issueID).first()
         .then(data => {
             delete data.id
             delete data.user_id
