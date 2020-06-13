@@ -8,7 +8,7 @@ module.exports = {
 }
 
 function getIssueDetails(issueID, db = connection) {
-    console.log(issueID)
+    console.log(connection)
     return db('issues')
         .join('details', 'details.issue_id', 'issues.id')
         .join('projects', 'projects.id', 'issues.project_id')
@@ -24,9 +24,6 @@ function getIssueDetails(issueID, db = connection) {
             'projects.name AS projectName',
             'projects.description AS projectDescription',
             '*')
-        .join('details', 'details.issue_id', 'issues.id')
-        .join('projects', 'projects.id', 'issues.project_id')
-        .join('status', 'status.issue_id', 'issues.id')
         .where('issueId', issueID).first()
         .then(data => {
             delete data.id
