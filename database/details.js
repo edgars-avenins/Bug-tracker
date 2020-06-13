@@ -11,7 +11,7 @@ function getIssueDetails(issueID, db = connection) {
     return db('issues')
         .join('details', 'details.issue_id', 'issues.id')
         .join('projects', 'projects.id', 'issues.project_id')
-        .join('status', 'status.issue_id', 'issues.id')
+        .leftJoin('status', 'status.issue_id', 'issues.id')
         .select('details.id AS detailId',
             'issues.id AS issueId',
             'projects.id AS projectId',
@@ -37,7 +37,7 @@ function getIssueDetails(issueID, db = connection) {
 
             return data
         })
-        .catch(err => console.error('Failed at DB getIssueDetails: ', err))
+        .catch(err => console.log('Failed at DB getIssueDetails: ', err))
 }
 
 
