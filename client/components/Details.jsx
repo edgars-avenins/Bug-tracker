@@ -21,13 +21,16 @@ class Details extends React.Component {
                     <p>Project started by {projectUser.projectFirstName} {projectUser.projectLastName}</p>
                     <a href={`mailto:${projectUser.projectEmail}`}>{projectUser.projectEmail}</a>
                     <hr/>
+
                     <h4>{details.issueName}</h4>
                     <h6>{details.issueDescription}</h6>
                     <p>Issue started by {issueUser.issueFirstName} {issueUser.issueLastName}</p>
                     <a href={`mailto:${issueUser.issueEmail}`}>{issueUser.issueEmail}</a>
                     <hr/>
+
                     <p>Priority level: {details.priority}</p>
                     <hr/>
+
                     <h4>Assigned user: </h4>
                     {
                         details.assigned == true ?

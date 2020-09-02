@@ -24,13 +24,14 @@
     align-self: center;
 }
 
+.splitDiv {
+    width: 30%;
+}
+
 a {
     text-decoration: none;
 }
 
-.splitDiv {
-    width: 30%;
-}
 
 .btnWidth {
     width: 100%
