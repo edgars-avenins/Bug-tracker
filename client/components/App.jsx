@@ -50,7 +50,7 @@ const mapStateToProps = ({ forms, auth }) => {
     auth
   }
 }
-export default connect(mapStateToProps, { })(App)
+export default connect(mapStateToProps)(App)
 
 //partaisi pec where the goods at principa
 //saliec routes un nojauc tieso komponensu renderingu
