@@ -25,9 +25,6 @@
     ]
   },
   "jest": {
-    "setupFiles": [
-      "./tests/setup.js"
-    ],
     "verbose": true
   },
   "dependencies": {
