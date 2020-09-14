@@ -19,17 +19,17 @@ class Access extends React.Component{
         const auth = this.props.auth
         return(
             <div>
-                <ul className='displayFlex'>
+                <ul role='authOptions' className='displayFlex'>
                     {
                     !auth ?
                         <>
-                            <li className='navItems'><Link to="/register">Sign Up</Link></li>
-                            <li className='navItems'><Link to="/login">Log in</Link></li>
+                            <li role='register' className='navItems'><Link to="/register">Sign Up</Link></li>
+                            <li role='login' className='navItems'><Link to="/login">Log in</Link></li>
                         </>
                     :
                         <>
-                            <li className='navItems'><Link to="/user">Profile</Link></li>
-                            <li className='navItems'><a href="#" onClick={this.handleLogout}>Log out</a></li>
+                            <li role='profile' className='navItems'><Link to="/user">Profile</Link></li>
+                            <li role='logout' className='navItems'><a href="#" onClick={this.handleLogout}>Log out</a></li>
                         </>
                     }
                 </ul>
